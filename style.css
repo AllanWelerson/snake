@@ -114,6 +114,8 @@ button:hover {
 }
 .top a{
     color: white;
+    text-decoration: none;
+    color: #58B19F;
 }
 
 .top .title{
