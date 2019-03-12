@@ -15,6 +15,13 @@ const food = {
     state: 2
 }
 
+let eatSound = new Audio('eat-sound.mp3')
+
+
+function playEatSound(){
+    eatSound.play()
+}
+
 
 function setLineCol(){
     if ('ontouchstart' in window || navigator.msMaxTouchPoints){
@@ -202,6 +209,7 @@ function eat(){
     if( snake.positions[0].line === food.line &&
         snake.positions[0].col === food.col){
         
+        playEatSound()
             
         throwFood()    
         return true
