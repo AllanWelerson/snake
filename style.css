@@ -2,6 +2,7 @@
 *{
     margin: 0;
     padding: 0;
+    touch-action: none;
 }
 
  html  {
@@ -13,16 +14,30 @@
 
 body{
     background-color: #341f97;
+    height: 100%;
+    width: 100%;
 }
 
 #display{
+    
     width: 600px;
     height: 600px;
-    margin: 100px auto; 
+    margin: 100px auto 20px; 
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    position: relative;
+
     
+}
+
+.display-game{
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    z-index: 1;  
 }
 
 .line {
@@ -56,12 +71,13 @@ body{
     display: flex;
     align-items: center;
     flex-direction: column;
+    margin: 20px;
 }
 
 #info button,
 button{
     border : 0;
-    width: 300px;
+    width: 50%;
     font-size: 25px;
     padding: 10px;
     color : white;
@@ -92,7 +108,6 @@ button:hover {
 }
 
 .tutorial {
-    width: 400px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -120,4 +135,28 @@ button:hover {
 
 .top .title{
     font-size: 30px;
+}
+
+#touch{
+   
+    width: 100%;
+    height: 100%;
+    position: absolute;
+
+}
+
+@media (max-width: 800px){
+    #display{
+        width: 100%;
+        height: 80%;
+        margin: 10px 0;
+    }
+
+    .top {
+        font-size: 10px;
+    }
+
+    .top .title{
+        font-size: 20px;
+    }
 }

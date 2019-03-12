@@ -2,7 +2,11 @@ const table = []
 const state = [ 'ground', 'snake', 'food']
 let snake = {}
 const ground = {
-    state : 0
+    state : 0,
+    line : 0,
+    col : 0,
+    velocity: 0
+
 }
 const food = {
     line : 0,
@@ -11,9 +15,24 @@ const food = {
 }
 let runGame
 
+function setLineCol(){
+    if ('ontouchstart' in window || navigator.msMaxTouchPoints){
+        ground.line = 20
+        ground.col = 15
+        ground.velocity = 120
+    }else{
+        ground.line = 30
+        ground.col = 30
+        ground.velocity = 110
+    }
+}
+
+setLineCol() 
 startGame()
 
 function startGame(){
+
+    
 
     document.querySelector("#info button").style.display = "none"
     document.querySelector("#info .tutorial").style.display = "flex"
@@ -27,7 +46,7 @@ function startGame(){
             ]
          }  
 
-           
+          
     createTable()
     renderDisplay()
     createSnake()
@@ -38,15 +57,15 @@ function startGame(){
 
 
 function run(){
-    runGame = setInterval(moveSnake, 100)
+    runGame = setInterval(moveSnake, ground.velocity)
 }
  
 
 function createTable (){
 
-    for( line = 0; line < 30; line++){
+    for( line = 0; line < ground.line; line++){
         table[line] = []
-        for(col = 0; col < 30; col++){
+        for(col = 0; col < ground.col; col++){
             table[line][col] = { state : 0}
         }
     }
@@ -68,7 +87,15 @@ function renderDisplay(){
         html += `</div>`
     }
 
-    display.innerHTML = html;
+    displayGame = `<div class="display-game" 
+                    ontouchstart="touchStart(event)"
+                    ontouchend="touchEnd(event)"></div>`
+
+
+    display.innerHTML = html + displayGame;
+
+    
+      
 
 }
 
@@ -302,3 +329,45 @@ function startButton(){
 function closeMsg(){
     document.querySelector("#msg").style.display = "none"
 }
+
+let touchX;
+let touchY;
+
+function touchStart(e){
+    e.preventDefault()
+    touchX = e.touches[0].clientX
+    touchY = e.touches[0].clientY   
+}
+
+function touchEnd(e){
+    e.preventDefault()
+    touchX = e.changedTouches[0].clientX - touchX
+    touchY = e.changedTouches[0].clientY - touchY
+
+    if(Math.abs(touchY) > Math.abs(touchX)){
+        if(touchY > 0){
+            if(snake.body.direction != "up")
+                snake.body.direction = "down"
+            
+        }else{
+            if(snake.body.direction != "down")
+                snake.body.direction = "up"
+            
+        }
+    }else{
+        if(touchX > 0){
+            if(snake.body.direction != "left")
+                snake.body.direction = "right"
+            
+        }else{
+            if(snake.body.direction != "right")
+                snake.body.direction = "left"
+            
+        }
+    }
+
+}
+
+
+
+
