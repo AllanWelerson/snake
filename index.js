@@ -1,3 +1,4 @@
+let runGame
 const table = []
 const state = [ 'ground', 'snake', 'food']
 let snake = {}
@@ -13,7 +14,7 @@ const food = {
     col: 0,
     state: 2
 }
-let runGame
+
 
 function setLineCol(){
     if ('ontouchstart' in window || navigator.msMaxTouchPoints){
@@ -116,7 +117,6 @@ function throwFood(){
         if(done){
             food.line = line
             food.col = col
-            // table[line][col].state = food.state
         }
     }
 
