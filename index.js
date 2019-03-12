@@ -299,22 +299,22 @@ document.onkeypress = function(key){
 
     switch (key.keyCode){
         case 119:
-            if(snake.body.direction != "down")
+            if(snake.body.direction != "down" && checkSquareFree("up"))
                 snake.body.direction = "up"
                 break
       
         case 100:
-            if(snake.body.direction != "left")
+            if(snake.body.direction != "left" && checkSquareFree("right"))
                 snake.body.direction = "right"
                 break
-           
+        
         case 115:
-            if(snake.body.direction != "up")
+            if(snake.body.direction != "up" && checkSquareFree("down"))
                 snake.body.direction = "down"
                 break
           
         case 97:
-            if(snake.body.direction != "right")
+            if(snake.body.direction != "right" && checkSquareFree("left"))
                 snake.body.direction = "left"
                 break
         
@@ -373,6 +373,38 @@ function touchEnd(e){
             
         }
     }
+
+}
+
+
+function checkSquareFree(direction){
+
+    position = snake.positions[0]    
+
+    switch (direction){
+        case 'down':
+            if(table[position.line + 1][position.col].state === 1){
+                return false
+            }
+            break
+        case 'up':
+            if(table[position.line - 1][position.col].state === 1){
+                return false
+            }
+            break
+        case 'right':
+            if(table[position.line][position.col + 1].state === 1){
+                return false
+            }
+            break
+        case 'left':
+            if(table[position.line][position.col - 1].state === 1){
+                return false
+            }
+            break
+    }
+
+    return true 
 
 }
 
